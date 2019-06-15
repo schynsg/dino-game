@@ -11,6 +11,8 @@ const cloudsCoordinates = {
 const dinoCoordinates = {
     'x' : 25,
     'y' : 539,
+    'initialY' : 539, //Need to be equal to the y value
+    'jumpheight' : 150,
 };
 
 const dinoSpriteCoordinates = {
@@ -40,29 +42,71 @@ const game = {
     },
 };
 
+onkeypress = function(e){
+    if(e.charCode == 32){
+        dinoJump();
+    }
+}
 
 game.init()
 
 
+function dinoJump() {
+    dinoCoordinates.y = dinoCoordinates.y - 8;
+    if (dinoCoordinates.y < dinoCoordinates.initialY - dinoCoordinates.jumpheight){
+        dinoJumpBack();
+    }
+    else {
+        window.requestAnimationFrame(()=> {dinoJump()});
+    }
+}
+
+function dinoJumpBack() {
+    dinoCoordinates.y = dinoCoordinates.y +8;
+    if (dinoCoordinates.y < dinoCoordinates.initialY) {
+        window.requestAnimationFrame(()=> {dinoJumpBack()});
+    } else {
+        dinoCoordinates.y = dinoCoordinates.initialY;
+    }
+}
+
+const dinoTempo = {
+    'speed' : 3, //higher the speed is, slower the dino walks
+    'frame' : 0,
+};
+
+const groundSpeed = 3.7; //higher the speed is, speeder the ground goes
+
+
 const animation = {
     move(){
-        groundCoordinates.x = groundCoordinates.x - 4;
-        if (groundCoordinates.x <= -350){
+        groundCoordinates.x = groundCoordinates.x - groundSpeed;
+        if (groundCoordinates.x <= -300){
             groundCoordinates.x = 0;
         }
         cloudsCoordinates.x = cloudsCoordinates.x - 0.1;
         if (cloudsCoordinates.x <= -900){
             cloudsCoordinates.x = 900;
         }
-        dinoSpriteCoordinates.x = dinoSpriteCoordinates.x + 120;
-        if (dinoSpriteCoordinates.x > 520) {
-            dinoSpriteCoordinates.x = 280;
-        }
+        dinoMove();
         game.init();
     }
 };
 
-
+function dinoMove() {
+    dinoTempo.frame = dinoTempo.frame +1;
+    console.log(dinoTempo.frame);
+    if (dinoTempo.frame <= dinoTempo.speed) {
+        dinoSpriteCoordinates.x = 280;
+    } else if (dinoTempo.frame > dinoTempo.speed && dinoTempo.frame <= dinoTempo.speed*2) {
+        dinoSpriteCoordinates.x = 400;
+    } else {
+        dinoSpriteCoordinates.x = 520;
+    }
+    if (dinoTempo.frame > dinoTempo.speed*3) {
+        dinoTempo.frame = 0;
+    }
+}
 
 
 
