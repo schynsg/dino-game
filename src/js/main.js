@@ -62,6 +62,9 @@ onkeypress = function(e){
     }
 }
 
+const startBtn = document.getElementById("start__btn");
+
+
 game.init()
 
 
@@ -92,6 +95,7 @@ const dinoTempo = {
 const groundSpeed = 3.7; //higher the speed is, speeder the ground goes
 
 
+
 const animation = {
     move(){
         groundCoordinates.x = groundCoordinates.x - groundSpeed;
@@ -104,9 +108,19 @@ const animation = {
         }
         cactusMove();
         dinoMove();
+        scoreChange();
         game.init();
     }
 };
+
+
+function scoreChange() {
+    score = score + 1;
+    document.getElementById("score").innerHTML = "<p> Your score : " + score + "</p>";
+}
+
+
+let score = 0;
 
 function dinoMove() {
     dinoTempo.frame = dinoTempo.frame +1;
@@ -134,7 +148,6 @@ function cactusMove() {
         secondcactusCoordinates.x = secondcactusCoordinates.initialX;
     }
 }
-
 
 
 

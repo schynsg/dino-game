@@ -11,27 +11,26 @@
     <canvas id="game" height="847" width="998"></canvas>
     <div class="start__menu">
         <h2>Let's start</h2>
-        <p>Please choose your difficulty</p>
         <div class="difficulty__choices">
-            <div>
-                <input type="radio" id="easy" name="difficulty" value="easy"
-                       checked>
-                <label for="easy">Easy</label>
-            </div>
-
-            <div>
-                <input type="radio" id="hard" name="difficulty" value="hard">
-                <label for="hard">Hard</label>
-            </div>
-
-            <div>
-                <input type="radio" id="impossible" name="difficulty" value="impossible">
-                <label for="impossible">Impossible</label>
-            </div>
+            <label for="diff">Please choose your difficulty :</label>
+            <select name="difficulty" id="diff">
+                <option value="easy">Easy</option>
+                <option value="hard">Hard</option>
+                <option value="impossible">Impossible</option>
+            </select>
         </div>
 
-        <button type="submit" value="start" class="start__btn">Start</button>
-        </div>
+        <button type="submit" value="start" id="start__btn">Start</button>
+    </div>
+    <div class="restart__menu">
+        <h2>Game Over</h2>
+        <button type="submit" value="restart" id="restart__btn">Restart</button>
+    </div>
+    <div id="score">
+    </div>
+    <div class="commands__div">
+        <p> Use space to jump</p>
+    </div>
     <script type="module" src="./src/js/main.js"></script>
 </body>
 </html>
