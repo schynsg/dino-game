@@ -12,12 +12,24 @@ const dinoCoordinates = {
     'x' : 25,
     'y' : 539,
     'initialY' : 539, //Need to be equal to the y value
-    'jumpheight' : 150,
+    'jumpheight' : 200,
 };
 
 const dinoSpriteCoordinates = {
     'x' : 280,
     'y' : 185,
+};
+
+const firstcactusCoordinates  = {
+    'x' : 1000,
+    'y' : groundCoordinates.y - 85,
+    'initialX' : 1000, //Need to be equal to the x value
+};
+
+const secondcactusCoordinates = {
+    'x' : 1000,
+    'y' : groundCoordinates.y - 85,
+    'initialX' : 1000, //Need to be equal to the x value
 }
 
 const game = {
@@ -37,6 +49,8 @@ const game = {
             this.ctx.drawImage(this.sprite, 0, 0, 1348, 173, groundCoordinates.x, groundCoordinates.y, 1348, 173);
             this.ctx.drawImage(this.sprite, 0, 1041, 1000, 162, cloudsCoordinates.x, cloudsCoordinates.y, 1041, 162);
             this.ctx.drawImage(this.sprite, dinoSpriteCoordinates.x, dinoSpriteCoordinates.y, 120, 139, dinoCoordinates.x, dinoCoordinates.y, 120, 139);
+            this.ctx.drawImage(this.sprite, 9, 238, 66, 85, firstcactusCoordinates.x, firstcactusCoordinates.y, 66, 85);
+            this.ctx.drawImage(this.sprite, 9, 238, 66, 85, secondcactusCoordinates.x, secondcactusCoordinates.y, 66, 85);
         })
         window.requestAnimationFrame(()=> {animation.move()});
     },
@@ -54,7 +68,7 @@ game.init()
 function dinoJump() {
     dinoCoordinates.y = dinoCoordinates.y - 8;
     if (dinoCoordinates.y < dinoCoordinates.initialY - dinoCoordinates.jumpheight){
-        dinoJumpBack();
+        setTimeout(dinoJumpBack, 130)
     }
     else {
         window.requestAnimationFrame(()=> {dinoJump()});
@@ -84,10 +98,11 @@ const animation = {
         if (groundCoordinates.x <= -300){
             groundCoordinates.x = 0;
         }
-        cloudsCoordinates.x = cloudsCoordinates.x - 0.1;
+        cloudsCoordinates.x = cloudsCoordinates.x - 0.2;
         if (cloudsCoordinates.x <= -900){
             cloudsCoordinates.x = 900;
         }
+        cactusMove();
         dinoMove();
         game.init();
     }
@@ -95,7 +110,6 @@ const animation = {
 
 function dinoMove() {
     dinoTempo.frame = dinoTempo.frame +1;
-    console.log(dinoTempo.frame);
     if (dinoTempo.frame <= dinoTempo.speed) {
         dinoSpriteCoordinates.x = 280;
     } else if (dinoTempo.frame > dinoTempo.speed && dinoTempo.frame <= dinoTempo.speed*2) {
@@ -105,6 +119,19 @@ function dinoMove() {
     }
     if (dinoTempo.frame > dinoTempo.speed*3) {
         dinoTempo.frame = 0;
+    }
+}
+
+function cactusMove() {
+    firstcactusCoordinates.x = firstcactusCoordinates.x - groundSpeed;
+    if (firstcactusCoordinates.x < -85) {
+        firstcactusCoordinates.x = firstcactusCoordinates.initialX;
+    }
+    if (secondcactusCoordinates.x < 1000 || firstcactusCoordinates.x < 700 - Math.floor(Math.random()*700)){
+        secondcactusCoordinates.x = secondcactusCoordinates.x - groundSpeed;
+    }
+    if (secondcactusCoordinates.x < -85) {
+        secondcactusCoordinates.x = secondcactusCoordinates.initialX;
     }
 }
 
