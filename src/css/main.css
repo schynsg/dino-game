@@ -27,8 +27,7 @@ canvas {
   top: 40vh;
   width: 40%;
   left: 30%;
-  border-radius: 20px;
-  visibility: hidden; }
+  border-radius: 20px; }
   .start__menu label {
     font-family: 'Helvetica', sans-serif; }
 
@@ -52,7 +51,8 @@ canvas {
   top: 40vh;
   width: 40%;
   left: 30%;
-  border-radius: 20px; }
+  border-radius: 20px;
+  visibility: hidden; }
   .restart__menu label {
     font-family: 'Helvetica', sans-serif; }
 
@@ -68,9 +68,11 @@ canvas {
   padding: 5px 15px;
   font-family: 'Merienda', cursive; }
 
-.commands__div p, #score p {
-  color: #e5a50b;
-  font-family: 'Helvetica', sans-serif; }
+.commands__div, #score {
+  visibility: hidden; }
+  .commands__div p, #score p {
+    color: #e5a50b;
+    font-family: 'Helvetica', sans-serif; }
 
 .commands__div {
   position: absolute;
